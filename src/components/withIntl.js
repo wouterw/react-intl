@@ -1,14 +1,24 @@
-import React, {Component, createContext} from 'react';
+import * as React from 'react';
 import {isValidElementType} from 'react-is';
-import hoistNonReactStatics from 'hoist-non-react-statics';
-import invariant from 'invariant';
 import {invariantIntlContext} from '../utils';
+import * as invariant_ from 'invariant';
+// Since rollup cannot deal with namespace being a function,
+// this is to interop with TypeScript since `invariant`
+// does not export a default
+// https://github.com/rollup/rollup/issues/1267
+const invariant = invariant_;
+import * as hoistNonReactStatics_ from 'hoist-non-react-statics';
+// Since rollup cannot deal with namespace being a function,
+// this is to interop with TypeScript since `invariant`
+// does not export a default
+// https://github.com/rollup/rollup/issues/1267
+const hoistNonReactStatics = hoistNonReactStatics_;
 
 function getDisplayName(Component) {
   return Component.displayName || Component.name || 'Component';
 }
 
-const IntlContext = createContext(null);
+const IntlContext = React.createContext(null);
 const {Consumer: IntlConsumer, Provider: IntlProvider} = IntlContext;
 
 export const Provider = IntlProvider;
@@ -39,7 +49,7 @@ function createWrapper(WrappedComponent) {
       "instead use the 'forwardRef' option and create a ref directly on the wrapped component."
   );
 
-  class WithIntl extends Component {
+  class WithIntl extends React.Component {
     static displayName = `withIntl(${getDisplayName(WrappedComponent)})`;
     static WrappedComponent = WrappedComponent;
 

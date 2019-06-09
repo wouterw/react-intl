@@ -1,5 +1,6 @@
-import expect, {createSpy, spyOn} from 'expect';
-import React from 'react';
+import * as expect from 'expect'
+import {createSpy, spyOn} from 'expect';
+import * as React from 'react';
 import {mount} from 'enzyme';
 import {makeMockContext, shallowDeep, SpyComponent} from '../testUtils'
 import {intlConfigPropTypes, intlFormatPropTypes} from '../../../src/types';
@@ -383,6 +384,7 @@ describe('<IntlProvider>', () => {
     });
 
     it('should re-render when props change', () => {
+        const Child = createSpy().andReturn(null);
         let IntlProvider = mockContext()
         const parentContext = getIntlContext(
           <IntlProvider locale='en'>
@@ -391,8 +393,7 @@ describe('<IntlProvider>', () => {
         );
 
         IntlProvider = mockContext(parentContext);
-        const Child = createSpy().andReturn(null);
-
+        
         const intlProvider = mount(
             <IntlProvider locale="en">
                 <SpyComponent />
@@ -408,6 +409,7 @@ describe('<IntlProvider>', () => {
 
     it('should re-render when context changes', () => {
         let IntlProvider = mockContext()
+        const Child = createSpy().andReturn(null);
         const initialParentContext = getIntlContext(
           <IntlProvider locale='en'>
             <Child />
@@ -420,8 +422,7 @@ describe('<IntlProvider>', () => {
         );
 
         IntlProvider = mockContext(initialParentContext);
-        const Child = createSpy().andReturn(null);
-
+    
         const el = (
             <IntlProvider>
                 <SpyComponent />

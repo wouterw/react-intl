@@ -5,7 +5,7 @@
  */
 
 import {Component, createElement, isValidElement} from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import withIntl from './withIntl';
 import IntlMessageFormat from 'intl-messageformat';
 import memoizeIntlConstructor from 'intl-format-cache';

@@ -4,13 +4,12 @@
  * See the accompanying LICENSE file for terms.
  */
 
-import React, {Component, Children} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import withIntl, {Provider} from './withIntl';
 import IntlMessageFormat from 'intl-messageformat';
 import IntlRelativeFormat from 'intl-relativeformat';
 import memoizeIntlConstructor from 'intl-format-cache';
-import invariant from 'invariant';
 import {
   createError,
   defaultErrorHandler,
@@ -21,6 +20,12 @@ import {
 import {intlConfigPropTypes, intlFormatPropTypes} from '../types';
 import * as format from '../format';
 import areIntlLocalesSupported from 'intl-locales-supported';
+import * as invariant_ from 'invariant';
+// Since rollup cannot deal with namespace being a function,
+// this is to interop with TypeScript since `invariant`
+// does not export a default
+// https://github.com/rollup/rollup/issues/1267
+const invariant = invariant_;
 
 const intlConfigPropNames = Object.keys(intlConfigPropTypes);
 const intlFormatPropNames = Object.keys(intlFormatPropTypes);
@@ -86,7 +91,7 @@ function getBoundFormatFns(config, state) {
   }, {});
 }
 
-class IntlProvider extends Component {
+class IntlProvider extends React.Component {
   static displayName = 'IntlProvider';
 
   static propTypes = {
@@ -188,7 +193,7 @@ class IntlProvider extends Component {
   render() {
     return (
       <Provider value={this.getContext()}>
-        {Children.only(this.props.children)}
+        {React.Children.only(this.props.children)}
       </Provider>
     );
   }

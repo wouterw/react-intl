@@ -30,44 +30,17 @@
     "type": "git",
     "url": "git@github.com:yahoo/react-intl.git"
   },
-  "main": "./lib/index.js",
-  "module": "./lib/index.es.js",
-  "jsnext:main": "./lib/index.es.js",
+  "main": "./dist/index.js",
+  "module": "./lib/index.js",
   "browserify-shim": {
     "react": "global:React"
-  },
-  "jest": {
-    "testRegex": "/test/(unit|functional)/.*\\.js",
-    "testPathIgnorePatterns": [
-      "test/functional/support",
-      "/test/unit/testUtils"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/en.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text",
-      "text-summary",
-      "html"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 85,
-        "functions": 100,
-        "lines": 95,
-        "statements": 95
-      }
-    },
-    "setupTestFrameworkScriptFile": "./test/setup.js"
   },
   "dependencies": {
     "hoist-non-react-statics": "^3.3.0",
     "intl-format-cache": "^3.0.0",
+    "intl-locales-supported": "^1.0.10",
     "intl-messageformat": "^4.0.0",
     "intl-relativeformat": "^6.1.0",
-    "intl-locales-supported": "^1.0.10",
     "invariant": "^2.1.1",
     "react-display-name": "^0.2.4",
     "react-is": "^16.3.1"
@@ -86,10 +59,10 @@
     "@babel/plugin-transform-modules-commonjs": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
+    "@formatjs/intl-relativetimeformat": "^1.0.0",
     "babel-eslint": "^7.1.1",
-    "babel-jest": "^23.6.0",
-    "babel-plugin-react-intl": "^2.0.0",
+    "babel-jest": "^24.0.0",
+    "babel-plugin-react-intl": "^3.0.0",
     "babel-plugin-transform-member-expression-literals": "^6.9.4",
     "babel-plugin-transform-property-literals": "^6.9.4",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.18",
@@ -110,8 +83,7 @@
     "intl": "^1.2.1",
     "intl-messageformat-parser": "^1.2.0",
     "intl-pluralrules": "^1.0.1",
-    "@formatjs/intl-relativetimeformat": "^1.0.0",
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "mkdirp": "^0.5.1",
     "prettier": "^1.6.1",
     "progress": "^2.0.3",
@@ -121,21 +93,26 @@
     "react-dom": "^16.8.6",
     "rimraf": "^2.4.2",
     "rollup": "^1.13.0",
-    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.1",
+    "rollup-plugin-re": "^1.0.7",
     "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-uglify": "^6.0.0",
     "rollup-plugin-virtual": "^1.0.1",
     "serialize-javascript": "^1.5.0",
     "superagent": "^3.0.0",
+    "ts-jest": "^24.0.2",
+    "tslib": "^1.9.3",
+    "typescript": "^3.5.1",
     "watchify": "^3.7.0"
   },
   "scripts": {
     "format": "prettier --check *.js scripts/*.js src/{*.js,**/*.js} *.md **/*.md",
     "format:fix": "prettier --write *.js scripts/*.js src/{*.js,**/*.js} *.md **/*.md",
     "clean": "rimraf src/en.js coverage/ dist/ lib/ test/renderer.js",
-    "build:lib": "rollup -c rollup.config.lib.js",
+    "build:lib": "tsc && tsc -p tsconfig.cjs.json",
     "build:dist:dev": "cross-env NODE_ENV=development rollup -c rollup.config.dist.js",
     "build:dist:prod": "cross-env NODE_ENV=production rollup -c rollup.config.dist.js",
     "build:dist": "yarn run build:dist:dev && yarn run build:dist:prod",
@@ -150,6 +127,6 @@
     "examples:install": "babel-node scripts/examples yarn install",
     "examples:link": "yarn link && babel-node scripts/examples yarn link react-intl",
     "preversion": "yarn run clean && yarn run build && yarn run test:all",
-    "prepare": "yarn run clean && yarn run build"
+    "prepublishOnly": "yarn run clean && yarn run build"
   }
 }

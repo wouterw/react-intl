@@ -4,13 +4,13 @@
  * See the accompanying LICENSE file for terms.
  */
 
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import withIntl from './withIntl';
 import {intlShape, numberFormatPropTypes} from '../types';
 import {invariantIntlContext, shouldIntlComponentUpdate} from '../utils';
 
-class FormattedNumber extends Component {
+class FormattedNumber extends React.Component {
   static displayName = 'FormattedNumber';
 
   static propTypes = {

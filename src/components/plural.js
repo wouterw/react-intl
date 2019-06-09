@@ -4,13 +4,13 @@
  * See the accompanying LICENSE file for terms.
  */
 
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import withIntl from './withIntl';
 import {intlShape, pluralFormatPropTypes} from '../types';
 import {invariantIntlContext, shouldIntlComponentUpdate} from '../utils';
 
-class FormattedPlural extends Component {
+class FormattedPlural extends React.Component {
   static displayName = 'FormattedPlural';
 
   static propTypes = {
